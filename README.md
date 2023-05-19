@@ -46,7 +46,7 @@ I am very excited but pretty nervous to use Vue. I just started a crash course o
 ## ERDs
 ---
 
-![wireframe](./assets/erd.png)
+![wireframe](./assets/erds.png)
 
 ## RESTFUL Routing chart
 ---
