@@ -33,10 +33,11 @@ export default {
         console.error(error);
       }
     },
-    navigateToPlantDetails(plant) {
+    goToPlantDetails(plantId, commonName, thumbnail) {
       this.$router.push({
         name: 'PlantDetails',
-        params: { plantId: plant.id, commonName: plant.common_name, thumbnail: plant.default_image.thumbnail }
+        params: { plantId },
+        query: { commonName, thumbnail }
       });
     }
   },
