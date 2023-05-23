@@ -22,7 +22,7 @@ const router = createRouter({
       component: PlantSearch,
     },
     {
-      path: '/plantdetails',
+      path: '/plant/:plantId',
       name: 'PlantDetails',
       component: PlantDetails,
     },
