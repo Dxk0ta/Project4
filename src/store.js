@@ -6,6 +6,8 @@ export default createStore({
   },
   mutations: {
     addToGarden(state, plant) {
+      // Assign the id property to the plant object
+      plant.id = plant.id || Math.random().toString(36).substr(2, 9);
       state.garden.push(plant);
     },
     deletePlant(state, plantId) {
@@ -15,11 +17,14 @@ export default createStore({
   actions: {
     addToGarden({ commit }, plant) {
       commit('addToGarden', plant);
+    },
+    deletePlant({ commit }, plantId) {
+      commit('deletePlant', plantId);
     }
   },
   getters: {
-    getGarden(state) {
-      return state.garden;
+    getPlantById: state => plantId => {
+      return state.garden.find(plant => plant.id === plantId);
     }
   }
 });

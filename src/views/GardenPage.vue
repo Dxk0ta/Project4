@@ -5,22 +5,30 @@
       <img :src="plant.thumbnail" alt="Plant thumbnail" />
       <h2>{{ plant.commonName }}</h2>
       <!-- Display other plant details here -->
-      <button @click="removePlant(plant.id)">Delete</button>
+      <button @click="deletePlantHandler(plant.id)">Delete</button>
+    </div>
+
+    <div>
+      <button @click="goToPlantSearch">Back to Plant Search</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   computed: {
     ...mapState(['garden'])
   },
   methods: {
-    ...mapMutations(['deletePlant']),
-    removePlant(plantId) {
+    ...mapActions(['deletePlant']),
+    deletePlantHandler(plantId) {
       this.deletePlant(plantId);
+    },
+    goToPlantSearch() {
+      // Navigate to the search details page
+      this.$router.push('/plantsearch');
     }
   }
 };

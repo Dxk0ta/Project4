@@ -33,10 +33,9 @@ export default {
   },
   methods: {
     ...mapActions(['addToGarden']),
-
     addToGardenHandler() {
       this.addToGarden(this.plant);
-      this.$router.push({ name: 'GardenPage' });
+      this.$router.push('/gardenpage');
     }
   }
 };
