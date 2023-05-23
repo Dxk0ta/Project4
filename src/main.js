@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
-
+import store from './store';
 // Import the components
 import PlantSearch from '@/views/PlantSearch.vue';
 import GardenPage from '@/views/GardenPage.vue';
@@ -36,4 +36,5 @@ const router = createRouter({
 
 const app = createApp(App);
 app.use(router);
+app.use(store);
 app.mount('#app');
