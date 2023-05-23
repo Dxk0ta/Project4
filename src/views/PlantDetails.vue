@@ -2,8 +2,8 @@
   <div>
     <h1>Plant Details</h1>
 
-    <h2>{{ plant.commonName }}</h2>
     <img :src="plant.thumbnail" alt="Plant thumbnail" />
+    <h2>{{ plant.commonName }}</h2>
 
     <!-- Display other plant details here -->
   </div>
@@ -33,3 +33,4 @@ export default {
 <style scoped>
 /* Add any custom styles for your component */
 </style>
+0

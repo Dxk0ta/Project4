@@ -3,10 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 
 // Import the components
-import PlantSearch from '@/components/PlantSearch.vue';
-import GardenPage from '@/components/GardenPage.vue';
-import HomePage from '@/components/HomePage.vue';
-import PlantDetails from '@/components/PlantDetails.vue';
+import PlantSearch from '@/views/PlantSearch.vue';
+import GardenPage from '@/views/GardenPage.vue';
+import HomePage from '@/views/HomePage.vue';
+import PlantDetails from '@/views/PlantDetails.vue';
 
 const router = createRouter({
   history: createWebHistory(),
