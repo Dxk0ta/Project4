@@ -1,20 +1,27 @@
 <template>
   <div>
     <h1>Garden Page</h1>
-    <div v-for="plant in garden" :key="plant.commonName" class="cardId">
+    <div v-for="plant in garden" :key="plant.id" class="cardId">
       <img :src="plant.thumbnail" alt="Plant thumbnail" />
       <h2>{{ plant.commonName }}</h2>
       <!-- Display other plant details here -->
+      <button @click="removePlant(plant.id)">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   computed: {
     ...mapState(['garden'])
+  },
+  methods: {
+    ...mapMutations(['deletePlant']),
+    removePlant(plantId) {
+      this.deletePlant(plantId);
+    }
   }
 };
 </script>

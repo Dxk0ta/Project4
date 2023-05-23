@@ -7,6 +7,9 @@ export default createStore({
   mutations: {
     addToGarden(state, plant) {
       state.garden.push(plant);
+    },
+    deletePlant(state, plantId) {
+      state.garden = state.garden.filter(plant => plant.id !== plantId);
     }
   },
   actions: {
