@@ -6,14 +6,14 @@
       <img :src="plant.thumbnail" alt="Plant thumbnail" class="card-img-top" />
       <div class="card-body">
         <h2 class="card-title">{{ plant.commonName }}</h2>
-        <h4 class="card-text">Plant Cycle: {{ plant.cycle }}</h4>
+        <h4 v-if="plant.cycle" class="card-text">Plant Cycle: {{ plant.cycle }}</h4>
         <!-- Display other plant details here -->
       </div>
     </div>
 
     <div class="mt-4">
       <button @click="addToGardenHandler" class="btn btn-success add-to-garden-btn">Add To Garden</button>
-      <button v-if="showBackButton" @click="backToSearch" class="btn btn-success back-to-search-btn">Back to Search</button>
+      <button @click="backToSearch" class="btn btn-success back-to-search-btn">Back to Search</button>
     </div>
 
     <div v-if="showMessageOverlay" class="message-overlay">
@@ -45,16 +45,14 @@ export default {
     };
   },
   mounted() {
-    this.plant.commonName = this.$route.query.commonName;
-    this.plant.thumbnail = this.$route.query.thumbnail;
-    this.plant.cycle = this.$route.query.cycle;
-    console.log('Plant:', this.plant); // Log the plant object to verify its properties
-  },
+  this.plant.commonName = this.$route.query.commonName;
+  this.plant.thumbnail = this.$route.query.thumbnail;
+  this.plant.cycle = this.$route.query.cycle;
+  console.log('Plant:', this.plant); // Log the plant object to verify its properties
+  console.log('Cycle:', this.plant.cycle); // Log the value of the plant's cycle
+},
   computed: {
     ...mapGetters(['getGarden']),
-    showBackButton() {
-      return this.getGarden.some(p => p.commonName === this.plant.commonName);
-    }
   },
   methods: {
     ...mapActions(['addToGarden']),
