@@ -28,6 +28,7 @@ const router = createRouter({
       path: '/plant/:plantId',
       name: 'PlantDetails',
       component: PlantDetails,
+      props: true
     },
     {
       path: '/gardenpage',
