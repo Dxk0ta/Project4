@@ -1,15 +1,21 @@
 {
-  "name": "",
+  "name": "garden",
   "version": "",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "express": "node server/server.js"
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
+    "mongo": "^0.1.0",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.1",
     "vuex": "^4.1.0"

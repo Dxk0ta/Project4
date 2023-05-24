@@ -7,7 +7,7 @@
     <div v-for="item in filteredNamesAndPictures" :key="item.id">
       <h3>{{ item.common_name }}</h3>
       <img :src="item.default_image.thumbnail" alt="User picture"
-           @click="goToPlantDetails(item.id, item.common_name, item.default_image.thumbnail)" />
+           @click="goToPlantDetails(item.id, item.common_name, item.default_image.thumbnail, item.cycle)" />
     </div>
   </div>
 </template>

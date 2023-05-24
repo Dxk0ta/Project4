@@ -1,46 +1,67 @@
 <template>
-  <div>
-    <h1>Plant Details</h1>
+  <div class="plant-details container">
+    <h1 class="mt-5">Plant Details</h1>
 
-    <div class="cardId">
-      <img :src="plant.thumbnail" alt="Plant thumbnail" />
-      <h2>{{ plant.commonName }}</h2>
-      <!-- Display other plant details here -->
+    <div class="card mt-4">
+      <img :src="plant.thumbnail" alt="Plant thumbnail" class="card-img-top" />
+      <div class="card-body">
+        <h2 class="card-title">{{ plant.commonName }}</h2>
+        <h4 class="card-text">Plant Cycle: {{ plant.cycle }}</h4>
+        <!-- Display other plant details here -->
+      </div>
     </div>
 
-    <div>
-      <button @click="addToGardenHandler">Add To Garden</button>
+    <div class="mt-4">
+      <button @click="addToGardenHandler" class="btn btn-success">Add To Garden</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       plant: {
         commonName: '',
-        thumbnail: ''
+        thumbnail: '',
+        cycle: '' // Corrected typo: "cycle" instead of "cyle"
         // Add other properties for plant details
       }
     };
   },
   mounted() {
-    this.plant.commonName = this.$route.query.commonName;
-    this.plant.thumbnail = this.$route.query.thumbnail;
+    const { commonName, thumbnail, cycle } = this.$route.query;
+    this.plant = { commonName, thumbnail, cycle };
+  },
+  computed: {
+    ...mapGetters(['getGarden']),
   },
   methods: {
     ...mapActions(['addToGarden']),
     addToGardenHandler() {
-      this.addToGarden(this.plant);
-      this.$router.push('/gardenpage');
-    }
-  }
+      const isDuplicate = this.getGarden.some(p => p.id === this.plant.id);
+      if (!isDuplicate) {
+        const plant = { ...this.plant };
+        plant.id = Math.random().toString(36).substr(2, 9); // Generate a unique ID for the plant
+        this.addToGarden(plant);
+        this.$router.push('/gardenpage');
+      } else {
+        console.log('Plant already exists in the garden.');
+      }
+    },
+  },
 };
 </script>
 
+
 <style scoped>
-/* Add any custom styles for your component */
+.plant-details {
+  background-color: #e4f4e8; /* Light green background color */
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Style specific elements as needed */
 </style>
