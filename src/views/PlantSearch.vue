@@ -7,7 +7,7 @@
     <div v-for="item in filteredNamesAndPictures" :key="item.id">
       <h3>{{ item.common_name }}</h3>
       <img :src="item.default_image.thumbnail" alt="User picture"
-       @click="goToPlantDetails(item.id, item.common_name, item.default_image.thumbnail, item.cycle, item.isPoisonous, item.other_name)" />
+           @click="goToPlantDetails(item.id, item.common_name, item.default_image.thumbnail, item.cycle)" />
     </div>
   </div>
 </template>
@@ -33,19 +33,11 @@ export default {
         console.error(error);
       }
     },
-    goToPlantDetails(plantId, commonName, thumbnail, cycle, isPoisonous, other_name) {
+    goToPlantDetails(plantId, commonName, thumbnail, cycle) {
       this.$router.push({
         name: 'PlantDetails',
-        params: {
-          plantId: plantId
-        },
-        query: {
-          commonName: commonName,
-          thumbnail: thumbnail,
-          cycle: cycle,
-          isPoisonous: isPoisonous,
-          other_name: JSON.stringify(other_name || []
-      )}
+        params: { plantId },
+        query: { commonName, thumbnail, cycle }
       });
     }
   },
