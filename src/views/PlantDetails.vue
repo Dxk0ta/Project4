@@ -12,10 +12,22 @@
     </div>
 
     <div class="mt-4">
-      <button @click="addToGardenHandler" class="btn btn-success">Add To Garden</button>
+      <button @click="addToGardenHandler" class="btn btn-success add-to-garden-btn">Add To Garden</button>
+      <button v-if="showBackButton" @click="backToSearch" class="btn btn-success back-to-search-btn">Back to Search</button>
+    </div>
+
+    <div v-if="showMessageOverlay" class="message-overlay">
+      <div class="message-content">
+        <h3>This plant already exists in your garden.</h3>
+        <p>Please choose a different plant on the search page.</p>
+        <button @click="closeMessageOverlay" class="btn btn-secondary">Close</button>
+      </div>
     </div>
   </div>
 </template>
+
+
+
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
@@ -26,34 +38,48 @@ export default {
       plant: {
         commonName: '',
         thumbnail: '',
-        cycle: '' // Corrected typo: "cycle" instead of "cyle"
+        cycle: ''
         // Add other properties for plant details
-      }
+      },
+      showMessageOverlay: false
     };
   },
   mounted() {
-    const { commonName, thumbnail, cycle } = this.$route.query;
-    this.plant = { commonName, thumbnail, cycle };
+    this.plant.commonName = this.$route.query.commonName;
+    this.plant.thumbnail = this.$route.query.thumbnail;
+    this.plant.cycle = this.$route.query.cycle;
+    console.log('Plant:', this.plant); // Log the plant object to verify its properties
   },
   computed: {
     ...mapGetters(['getGarden']),
+    showBackButton() {
+      return this.getGarden.some(p => p.commonName === this.plant.commonName);
+    }
   },
   methods: {
     ...mapActions(['addToGarden']),
-    addToGardenHandler() {
-      const isDuplicate = this.getGarden.some(p => p.id === this.plant.id);
+    closeMessageOverlay() {
+    this.showMessageOverlay = false;
+  },
+  addToGardenHandler() {
+      const isDuplicate = this.getGarden.some(p => p.commonName === this.plant.commonName);
       if (!isDuplicate) {
         const plant = { ...this.plant };
         plant.id = Math.random().toString(36).substr(2, 9); // Generate a unique ID for the plant
         this.addToGarden(plant);
         this.$router.push('/gardenpage');
       } else {
+        this.showMessageOverlay = true;
         console.log('Plant already exists in the garden.');
       }
+    },
+    backToSearch() {
+      this.$router.push('/plantsearch');
     },
   },
 };
 </script>
+
 
 
 <style scoped>
@@ -63,5 +89,30 @@ export default {
   font-family: 'Arial', sans-serif;
 }
 
-/* Style specific elements as needed */
+.add-to-garden-btn {
+  margin-right: 10px;
+}
+
+.back-to-search-btn {
+  margin-left: 10px;
+}
+
+.message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
 </style>
